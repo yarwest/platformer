@@ -38,7 +38,3 @@ class Destroyable(Object):
     # Destroys the object in a fashonable way
     def die(self):
         print "died"
-
-    # Function to check if there is any collision between an object and the destroyable sprite collection
-    def collision(self, collider):
-        return pygame.sprite.spritecollide(collider, self.__destroyableSprites, False)

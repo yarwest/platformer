@@ -25,9 +25,6 @@ class Object(pygame.sprite.Sprite):
             print("Error", exp)
             self.__location = (0,0)
 
-        # Rect needed for collision detection
-        self.rect = pygame.Rect(location[0], location[1], self.__spriteWidth, self.__spriteHeigth)
-
     # Draw an individual sprite on the set screen and on the set location
     def draw(self):
         self.__screen.blit(self.__sprite, self.__location)
@@ -40,11 +37,9 @@ class Object(pygame.sprite.Sprite):
     # Requires a tuple of which the x-location value has to be on the screen
     # Whenever the x-location of the player is outside of the screen, the value is set to the edge
     def setLocation(self, location):
-        x = self.__screen.get_size()[0]
+        x, y = self.__screen.get_size()
         if location[0] < 75:
             location = (75,location[1])
         elif location[0] > x-self.__spriteWidth-75:
             location = (x-self.__spriteWidth-75,location[1])
         self.__location = location
-        self.rect.x = self.__location[0]
-        self.rect.y = self.__location[1]
