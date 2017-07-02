@@ -11,7 +11,8 @@ screen = pygame.display.set_mode((1024,1024)#, pygame.FULLSCREEN, 16
     )
 
 # Init the player
-player = Player((130, 580), screen, 100, 20)
+player = Player((130, 580), screen, 100, 10)
+moving = 0
 
 # Init the environment
 environment = Environment(screen, "1", "gras-dirt")
@@ -22,6 +23,7 @@ done = False
 def resetCanvas():
     screen.fill((84, 149, 255))
     environment.draw()
+    player.move(moving)
     player.draw()
     pygame.display.flip()
 
@@ -33,7 +35,12 @@ while not done:
             done = True
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a:
-                player.move(-1)
+                moving = -1
             elif event.key == pygame.K_d:
-                player.move()
+                moving = 1
+            elif event.key == pygame.K_w or event.key == pygame.K_SPACE:
+                player.jump()
+        elif event.type == pygame.KEYUP:
+            if event.key == pygame.K_a or event.key == pygame.K_d:
+                moving = 0
         pygame.display.flip()

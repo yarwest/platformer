@@ -33,10 +33,14 @@ class Moveable(Destroyable):
     # This determines if the object moves forward or backward
     def move(self, direction = 1):
         try:
-            if direction == 1 or direction == -1:
+            if direction == 1 or direction == -1 or direction == 0:
                 x, y = self.getLocation()
-                self.setLocation((x + (direction * self.__speed), y))
+                self.setLocation((x + (direction * self.__speed), y)) #y+15 for gravity
             else:
                 raise ValueError("Please enter a valid direction")
         except ValueError as exp:
             print("Error", exp)
+
+    def jump(self):
+        x, y = self.getLocation()
+        self.setLocation((x,y-50))
