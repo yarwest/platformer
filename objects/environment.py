@@ -39,5 +39,9 @@ class Environment():
 
     # Draw an individual sprite on the set screen and on the set location
     def draw(self):
+        from gameMaster import GameMaster
+        maxX,maxY = self.__screen.get_size()
         for section in self.__sections:
-            section.draw()
+            x,y = section.getLocation()
+            if x < maxX and y < maxY:
+                section.draw()
