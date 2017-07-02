@@ -1,5 +1,4 @@
 import pygame
-from gameMaster import GameMaster
 class DrawableObject(pygame.sprite.Sprite):
 
     # Constructor that loads the sprite and initializes variables
@@ -8,6 +7,7 @@ class DrawableObject(pygame.sprite.Sprite):
     def __init__(self, location, screen, sprite):
         try:
             super(DrawableObject, self).__init__()
+            from gameMaster import GameMaster
             self.__screen = screen
             self.__sprite = sprite
 
@@ -31,4 +31,10 @@ class DrawableObject(pygame.sprite.Sprite):
 
     # Set the location of the object
     def setLocation(self, location):
+        from gameMaster import GameMaster
+        x = GameMaster.getLevelSize()[0]
+        if location[0] < 0:
+            location = (0,location[1])
+        elif location[0] > x-self.__sprite.get_size()[0]:
+            location = (x-self.__sprite.get_size()[0],location[1])
         self.__location = location

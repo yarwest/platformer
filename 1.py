@@ -3,6 +3,6 @@ import pygame
 from objects.gameMaster import GameMaster
 
 # Init the environment
-gm = GameMaster("1", "gras-dirt",(1024,1024),(1024,1024))
+GameMaster.initGame("1", "gras-dirt",(1024,1024),(1024,1024))
 
-gm.play()
+GameMaster.play()
