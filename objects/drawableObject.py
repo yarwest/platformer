@@ -23,7 +23,10 @@ class DrawableObject(pygame.sprite.Sprite):
 
     # Draw an individual sprite on the set screen and on the set location
     def draw(self):
-        self.__screen.blit(self.__sprite, self.__location)
+        from gameMaster import GameMaster
+        x,y = self.__location
+        cameraX, cameraY = GameMaster.getCameraPosition()
+        self.__screen.blit(self.__sprite, (x-cameraX, y-cameraY))
 
     # Retrieve the current location of the object
     def getLocation(self):
