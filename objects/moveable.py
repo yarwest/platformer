@@ -8,7 +8,6 @@ class Moveable(Destroyable):
     def __init__(self, location, screen, sprite, health, speed):
         try:
             super(Moveable, self).__init__(location, screen, sprite, health)
-            self.__screen = screen
 
             # Speed has to be positive to be valid
             if speed >= 0:
