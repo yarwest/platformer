@@ -11,5 +11,8 @@ class Player(Moveable):
     # Requires a location tuple to use as the default location of the player
     # Takes the screen for the sprite to be drawn on
     def __init__(self, location, screen, health, speed):
-        super(Player, self).__init__(location, screen, self.__defaultFileName, self.__spriteWidth, self.__spriteHeigth, health, speed)
-        self.__screen = screen
+        # Initialize the sprite
+        self.__sprite = pygame.image.load(self.__defaultFileName)
+        self.__sprite = pygame.transform.scale(self.__sprite, (self.__spriteWidth,self.__spriteHeigth)).convert_alpha()
+
+        super(Player, self).__init__(location, screen, self.__sprite, health, speed)

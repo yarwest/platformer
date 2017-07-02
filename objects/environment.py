@@ -1,5 +1,5 @@
 import pygame
-from environmentObject import EnvironmentObject
+from environmentSection import EnvironmentSection
 class Environment():
 
     __positions = [
@@ -35,9 +35,9 @@ class Environment():
         with open("levels/"+levelNo+".txt", "r") as file:
             for line in file:
                 x,y,section = line.split(",")
-                self.__sections.append(EnvironmentObject((int(x),int(y)),self.__screen,int(section)))
+                self.__sections.append(EnvironmentSection((int(x),int(y)),self.__screen,self.__sprites[int(section)]))
 
     # Draw an individual sprite on the set screen and on the set location
     def draw(self):
         for section in self.__sections:
-            section.draw(self.__sprites[section.section])
+            section.draw()

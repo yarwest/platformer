@@ -1,6 +1,6 @@
 import pygame
-from object import Object
-class Destroyable(Object):
+from drawableObject import DrawableObject
+class Destroyable(DrawableObject):
 
     # Group of sprites used to detect collision between sprites
     __destroyableSprites = pygame.sprite.Group()
@@ -8,9 +8,9 @@ class Destroyable(Object):
     # Constructor that loads the sprite and initializes player variables
     # Requires a location tuple to use as the default location of the player
     # Takes the screen for the sprite to be drawn on
-    def __init__(self, location, screen, fileName, spriteWidth, spriteHeigth, health):
+    def __init__(self, location, screen, sprite, health):
         try:
-            super(Destroyable, self).__init__(location, screen, fileName, spriteWidth, spriteHeigth)
+            super(Destroyable, self).__init__(location, screen, sprite)
 
             # Add destroyable to collision group
             self.__destroyableSprites.add((self))
