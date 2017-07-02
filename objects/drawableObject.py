@@ -1,4 +1,5 @@
 import pygame
+from gameMaster import GameMaster
 class DrawableObject(pygame.sprite.Sprite):
 
     # Constructor that loads the sprite and initializes variables
@@ -10,8 +11,9 @@ class DrawableObject(pygame.sprite.Sprite):
             self.__screen = screen
             self.__sprite = sprite
 
-            # Location has to be on the actual screen to be valid
-            if location[0] >= 0 and location[1] >= 0:
+            # Location has to be in the actual level to be valid
+            x,y = GameMaster.getLevelSize()
+            if location[0] >= 0 and location[1] >= 0 and location[0] < x and location[1] < y:
                 self.__location = location
             else:
                 raise ValueError("Please enter a valid location, default location was set to (0,0)")
