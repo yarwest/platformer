@@ -1,11 +1,11 @@
 import pygame
-from objects.player import Player
-from objects.environment import Environment
+from player import Player
+from environment import Environment
 class GameMaster:
 
     # Init function that loads the sprite and initializes variables
     @classmethod
-    def initGame(cls, level, world, screenSize, levelSize):
+    def initLevel(cls, level, world, screenSize, levelSize):
         # Init pygame
         pygame.init()
 
