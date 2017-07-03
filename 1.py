@@ -1,5 +1,4 @@
-# Import lib and classes
-import pygame
+# Import GameMaster
 from objects.gameMaster import GameMaster
 
 # Init the environment
