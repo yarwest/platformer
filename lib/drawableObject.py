@@ -11,6 +11,10 @@ class DrawableObject(pygame.sprite.Sprite):
             self.__screen = screen
             self.__sprite = sprite
 
+            # Rect needed for collision detection
+            spriteX,spriteY = self.__sprite.get_size()
+            self.rect = pygame.Rect(location[0], location[1], spriteX, spriteY)
+
             # Location has to be in the actual level to be valid
             x,y = GameMaster.getLevelSize()
             if location[0] >= 0 and location[1] >= 0 and location[0] < x and location[1] < y:
@@ -35,9 +39,15 @@ class DrawableObject(pygame.sprite.Sprite):
     # Set the location of the object
     def setLocation(self, location):
         from gameMaster import GameMaster
-        x = GameMaster.getLevelSize()[0]
+        levelX = GameMaster.getLevelSize()[0]
+        spriteWidth = self.__sprite.get_size()[0]
         if location[0] < 0:
             location = (0,location[1])
-        elif location[0] > x-self.__sprite.get_size()[0]:
-            location = (x-self.__sprite.get_size()[0],location[1])
+        elif location[0] > levelX-spriteWidth:
+            location = (levelX-spriteWidth,location[1])
         self.__location = location
+        self.rect.x = self.__location[0]
+        self.rect.y = self.__location[1]
+
+    def getSize(self):
+        return self.__sprite.get_size()

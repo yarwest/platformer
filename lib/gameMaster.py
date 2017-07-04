@@ -19,7 +19,7 @@ class GameMaster:
         cls.__environment = Environment(cls.__screen, level, world)
 
         # Init the player
-        cls.__player = Player((130, 580), cls.__screen, 100, 10)
+        cls.__player = Player((130, 500), cls.__screen, cls.__environment, 100, 10)
         cls.__moving = 0
         cls.__cameraPosition = (0,0)
 

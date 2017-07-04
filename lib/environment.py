@@ -1,29 +1,17 @@
 import pygame
 from environmentSection import EnvironmentSection
+import globals
 class Environment():
 
-    TOP_LEFT = 0
-    TOP_MIDDLE = 1
-    TOP_RIGHT = 2
-    MIDDLE_LEFT = 3
-    CENTER = 4
-    MIDDLE_RIGHT = 5
-    BOTTOM_LEFT = 6
-    BOTTOM_MIDDLE = 7
-    BOTTOM_RIGHT = 8
-    INNER_BOTTOM_LEFT = 9
-    INNER_BOTTOM_RIGHT = 10
-    INNER_TOP_LEFT = 11
-    INNER_TOP_RIGHT = 12
     __needHitbox = [
-        TOP_LEFT,
-        TOP_MIDDLE,
-        TOP_RIGHT,
-        MIDDLE_LEFT,
-        MIDDLE_RIGHT,
-        BOTTOM_LEFT,
-        BOTTOM_MIDDLE,
-        BOTTOM_RIGHT
+        globals.TOP_LEFT,
+        globals.TOP_MIDDLE,
+        globals.TOP_RIGHT,
+        globals.MIDDLE_LEFT,
+        globals.MIDDLE_RIGHT,
+        globals.BOTTOM_LEFT,
+        globals.BOTTOM_MIDDLE,
+        globals.BOTTOM_RIGHT
     ]
 
     __positions = [
@@ -47,21 +35,23 @@ class Environment():
     # Takes the screen for the sprite to be drawn on
     def __init__(self, screen, levelNo, world):
         self.__screen = screen
-        self.__sections = []
         self.__sprites = []
 
         # Load and adapt the tile images
         for i in range(13):
             self.__sprites.append(pygame.image.load("sprites/tiles/"+world+"/"+self.__positions[i]+".png"))
-            #self.__sprites.append(pygame.transform.scale(sprite, (128,128)).convert_alpha())
+
+        self.__hitboxSection = []
+        self.__sections = []
 
         with open("levels/"+levelNo+".txt", "r") as file:
             for line in file:
-                x,y,section = line.split(",")
-                section = int(section)
-                if section in self.__needHitbox:
-                    print "needs a box yo"
-                self.__sections.append(EnvironmentSection((int(x),int(y)),self.__screen,self.__sprites[section]))
+                sectionX,sectionY,sectionNo = line.split(",")
+                sectionNo = int(sectionNo)
+                section = EnvironmentSection((int(sectionX),int(sectionY)),self.__screen,self.__sprites[sectionNo],sectionNo)
+                if sectionNo in self.__needHitbox:
+                    self.__hitboxSection.append(section)
+                self.__sections.append(section)
 
     # Draw an individual sprite on the set screen and on the set location
     def draw(self):
@@ -69,5 +59,9 @@ class Environment():
         minX,minY,maxX,maxY = GameMaster.getScreenPosition()
         for section in self.__sections:
             x,y = section.getLocation()
-            if x+64 >= minX and y+64 >= minY and x < maxX and y < maxY:
+            if x+globals.TILE_WIDTH >= minX and y+globals.TILE_WIDTH >= minY and x < maxX and y < maxY:
                 section.draw()
+
+    # Function to check if there is any collision between an object and the sprite collection
+    def collision(self, collider):
+        return pygame.sprite.spritecollide(collider, self.__hitboxSection, False)
