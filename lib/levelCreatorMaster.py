@@ -16,6 +16,7 @@ class LevelCreatorMaster:
         cls.__levelHeight = 1024
 
         cls.__cameraPosition = (0,0)
+        cls.__name = None
 
         # Loop until the user clicks the close button.
         cls.__done = False
@@ -51,6 +52,17 @@ class LevelCreatorMaster:
     def resetCanvas(cls):
         cls.__screen.fill((84, 149, 255))
         pygame.display.flip()
+
+    @classmethod
+    def saveLevel(cls):
+        if cls.__name:
+            print "saved"
+        else:
+            print "set a name"
+
+    @classmethod
+    def setLevelName(cls, name):
+        cls.__name = name
 
     @classmethod
     def play(cls):
