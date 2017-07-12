@@ -56,7 +56,8 @@ class LevelCreatorMaster:
     @classmethod
     def saveLevel(cls):
         if cls.__name:
-            print "saved"
+            with open("levels/"+cls.__name+".txt", "a+") as file:
+                file.write("saved")
         else:
             print "set a name"
 
