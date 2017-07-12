@@ -1,11 +1,9 @@
 import pygame
-from player import Player
-from environment import Environment
-class GameMaster:
+class LevelCreatorMaster:
 
-    # Init function that opens a screen, instantiates certain objects, and sets a few variables
+    # function that opens a screen and sets up the level creator
     @classmethod
-    def initLevel(cls, level, world, screenSize, levelSize):
+    def initCreator(cls, screenSize):
         # Init pygame
         pygame.init()
 
@@ -14,13 +12,9 @@ class GameMaster:
             )
         cls.__screenWidth = screenSize[0]
         cls.__screenHeight = screenSize[1]
-        cls.__levelWidth = levelSize[0]
-        cls.__levelHeight = levelSize[1]
-        cls.__environment = Environment(cls.__screen, level, world)
+        cls.__levelWidth = 1024
+        cls.__levelHeight = 1024
 
-        # Init the player
-        cls.__player = Player((130, 500), cls.__screen, cls.__environment, 100, 10)
-        cls.__moving = 0
         cls.__cameraPosition = (0,0)
 
         # Loop until the user clicks the close button.
@@ -56,13 +50,7 @@ class GameMaster:
     @classmethod
     def resetCanvas(cls):
         cls.__screen.fill((84, 149, 255))
-        cls.__environment.draw()
-        cls.__player.move(cls.__moving)
-        cls.__player.draw()
-        x,y = cls.__player.getLocation()
-        cls.setCameraPosition((x-(cls.__screenWidth/2),y-(cls.__screenHeight/2)))
         pygame.display.flip()
-
 
     @classmethod
     def play(cls):
@@ -72,14 +60,10 @@ class GameMaster:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     cls.__done = True
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    print "mouse click"
                 elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_a:
-                        cls.__moving = -1
-                    elif event.key == pygame.K_d:
-                        cls.__moving = 1
-                    elif event.key == pygame.K_w or event.key == pygame.K_SPACE:
-                        cls.__player.jump()
+                    print "key down"
                 elif event.type == pygame.KEYUP:
-                    if event.key == pygame.K_a or event.key == pygame.K_d:
-                        cls.__moving = 0
+                    print "key up"
                 pygame.display.flip()
