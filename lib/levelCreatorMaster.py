@@ -1,4 +1,6 @@
 import pygame
+import globals
+from environmentSection import EnvironmentSection
 class LevelCreatorMaster:
 
     # function that opens a screen and sets up the level creator
@@ -17,6 +19,17 @@ class LevelCreatorMaster:
 
         cls.__cameraPosition = (0,0)
         cls.__name = None
+
+        cls.__sprites = [
+            pygame.image.load("sprites/tiles/gras-dirt/center.png")
+        ]
+
+        cls.__sections = [
+            EnvironmentSection((64,64),cls.__screen,cls.__sprites[0],globals.CENTER),
+            EnvironmentSection((64,128),cls.__screen,cls.__sprites[0],globals.CENTER),
+            EnvironmentSection((64,192),cls.__screen,cls.__sprites[0],globals.CENTER),
+            EnvironmentSection((64,256),cls.__screen,cls.__sprites[0],globals.CENTER)
+        ]
 
     @classmethod
     def getLevelSize(cls):
@@ -48,13 +61,17 @@ class LevelCreatorMaster:
     @classmethod
     def resetCanvas(cls):
         cls.__screen.fill((84, 149, 255))
+        for section in cls.__sections:
+            section.draw()
         pygame.display.flip()
 
     @classmethod
     def saveLevel(cls):
         if cls.__name:
             with open("levels/"+cls.__name+".txt", "a+") as file:
-                file.write("saved")
+                for section in cls.__sections:
+                    x,y = section.getSection()
+                    file.write(str(x)+","+str(y)+","+str(section.getLocation())+"\n")
         else:
             print "set a name"
 
