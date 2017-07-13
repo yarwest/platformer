@@ -18,9 +18,6 @@ class LevelCreatorMaster:
         cls.__cameraPosition = (0,0)
         cls.__name = None
 
-        # Loop until the user clicks the close button.
-        cls.__done = False
-
     @classmethod
     def getLevelSize(cls):
         return (cls.__levelWidth,cls.__levelHeight)
@@ -64,19 +61,3 @@ class LevelCreatorMaster:
     @classmethod
     def setLevelName(cls, name):
         cls.__name = name
-
-    @classmethod
-    def play(cls):
-        # -------- Main Program Loop -----------
-        while not cls.__done:
-            cls.resetCanvas()
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    cls.__done = True
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-                    print "mouse click"
-                elif event.type == pygame.KEYDOWN:
-                    print "key down"
-                elif event.type == pygame.KEYUP:
-                    print "key up"
-                pygame.display.flip()
