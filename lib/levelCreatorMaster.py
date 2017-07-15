@@ -1,23 +1,21 @@
 import pygame
 import globals
 from environmentSection import EnvironmentSection
-class LevelCreatorMaster:
+from cameraController import CameraController
+class LevelCreatorMaster(CameraController):
 
     # function that opens a screen and sets up the level creator
     @classmethod
-    def initCreator(cls, screenSize):
+    def init(cls, screenSize):
         # Init pygame
         pygame.init()
+
+        super(LevelCreatorMaster, cls).init(screenSize, (1024,1024))
 
         # Set up the screen
         cls.__screen = pygame.display.set_mode(screenSize#, pygame.FULLSCREEN, 16
             )
-        cls.__screenWidth = screenSize[0]
-        cls.__screenHeight = screenSize[1]
-        cls.__levelWidth = 1024
-        cls.__levelHeight = 1024
 
-        cls.__cameraPosition = (0,0)
         cls.__name = None
 
         cls.__sprites = [
@@ -32,33 +30,6 @@ class LevelCreatorMaster:
         ]
 
     @classmethod
-    def getLevelSize(cls):
-        return (cls.__levelWidth,cls.__levelHeight)
-
-    @classmethod
-    def getCameraPosition(cls):
-        return cls.__cameraPosition
-
-    @classmethod
-    def setCameraPosition(cls, position):
-        maxX = cls.__levelWidth-cls.__screenWidth
-        maxY = cls.__levelHeight-cls.__screenHeight
-        if position[0] < 0:
-            position = (0,position[1])
-        elif position[0] > maxX:
-            position = (maxX,position[1])
-        if position[1] < 0:
-            position = (position[0],0)
-        elif position[1] > maxY:
-            position = (position[0],maxY)
-        cls.__cameraPosition = position
-
-    @classmethod
-    def getScreenPosition(cls):
-        x,y = cls.__cameraPosition
-        return [x,y,x+cls.__screenWidth,y+cls.__screenHeight]
-
-    @classmethod
     def resetCanvas(cls):
         cls.__screen.fill((84, 149, 255))
         for section in cls.__sections:
@@ -70,8 +41,8 @@ class LevelCreatorMaster:
         if cls.__name:
             with open("levels/"+cls.__name+".txt", "a+") as file:
                 for section in cls.__sections:
-                    x,y = section.getSection()
-                    file.write(str(x)+","+str(y)+","+str(section.getLocation())+"\n")
+                    x,y = section.getLocation()
+                    file.write(str(x)+","+str(y)+","+str(section.getSection())+"\n")
         else:
             print "set a name"
 

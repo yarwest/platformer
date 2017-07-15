@@ -1,57 +1,31 @@
 import pygame
 from player import Player
 from environment import Environment
-class GameMaster:
+from cameraController import CameraController
+class GameMaster(CameraController):
 
     # Init function that opens a screen, instantiates certain objects, and sets a few variables
     @classmethod
-    def initLevel(cls, level, world, screenSize, levelSize):
+    def init(cls, level, world, screenSize, levelSize):
         # Init pygame
         pygame.init()
+
+        super(GameMaster, cls).init(screenSize, levelSize)
+
+        cls.__screenWidth = screenSize[0]
+        cls.__screenHeight = screenSize[1]
 
         # Set up the screen
         cls.__screen = pygame.display.set_mode(screenSize#, pygame.FULLSCREEN, 16
             )
-        cls.__screenWidth = screenSize[0]
-        cls.__screenHeight = screenSize[1]
-        cls.__levelWidth = levelSize[0]
-        cls.__levelHeight = levelSize[1]
         cls.__environment = Environment(cls.__screen, level, world)
 
         # Init the player
         cls.__player = Player((130, 500), cls.__screen, cls.__environment, 100, 10)
         cls.__moving = 0
-        cls.__cameraPosition = (0,0)
 
         # Loop until the user clicks the close button.
         cls.__done = False
-
-    @classmethod
-    def getLevelSize(cls):
-        return (cls.__levelWidth,cls.__levelHeight)
-
-    @classmethod
-    def getCameraPosition(cls):
-        return cls.__cameraPosition
-
-    @classmethod
-    def setCameraPosition(cls, position):
-        maxX = cls.__levelWidth-cls.__screenWidth
-        maxY = cls.__levelHeight-cls.__screenHeight
-        if position[0] < 0:
-            position = (0,position[1])
-        elif position[0] > maxX:
-            position = (maxX,position[1])
-        if position[1] < 0:
-            position = (position[0],0)
-        elif position[1] > maxY:
-            position = (position[0],maxY)
-        cls.__cameraPosition = position
-
-    @classmethod
-    def getScreenPosition(cls):
-        x,y = cls.__cameraPosition
-        return [x,y,x+cls.__screenWidth,y+cls.__screenHeight]
 
     @classmethod
     def resetCanvas(cls):
