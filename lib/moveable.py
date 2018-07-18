@@ -6,9 +6,9 @@ class Moveable(Destroyable):
     # Constructor that loads the sprite and initializes player variables
     # Requires a location tuple to use as the default location of the player
     # Takes the screen for the sprite to be drawn on
-    def __init__(self, location, screen, environment, sprite, health, speed):
+    def __init__(self, location, screen, environment, sprite, health, speed, master):
         try:
-            super(Moveable, self).__init__(location, screen, sprite, health)
+            super(Moveable, self).__init__(location, screen, sprite, health, master)
 
             self.__environment = environment
 

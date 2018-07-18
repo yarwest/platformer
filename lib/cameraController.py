@@ -1,5 +1,5 @@
 import pygame
-class CameraController:
+class CameraController(object):
 
     __cameraPosition = (0,0)
 
@@ -12,7 +12,7 @@ class CameraController:
 
     @classmethod
     def getLevelSize(cls):
-        return (cls.__levelWidth,cls.__levelHeight)
+        return (cls.__levelWidth, cls.__levelHeight)
 
     @classmethod
     def getCameraPosition(cls):
@@ -20,19 +20,19 @@ class CameraController:
 
     @classmethod
     def setCameraPosition(cls, position):
-        maxX = cls.__levelWidth-cls.__screenWidth
-        maxY = cls.__levelHeight-cls.__screenHeight
+        maxX = cls.__levelWidth - cls.__screenWidth
+        maxY = cls.__levelHeight - cls.__screenHeight
         if position[0] < 0:
-            position = (0,position[1])
+            position = (0, position[1])
         elif position[0] > maxX:
-            position = (maxX,position[1])
+            position = (maxX, position[1])
         if position[1] < 0:
-            position = (position[0],0)
+            position = (position[0], 0)
         elif position[1] > maxY:
-            position = (position[0],maxY)
+            position = (position[0], maxY)
         cls.__cameraPosition = position
 
     @classmethod
     def getScreenPosition(cls):
         x,y = cls.__cameraPosition
-        return [x,y,x+cls.__screenWidth,y+cls.__screenHeight]
+        return [x, y, x + cls.__screenWidth, y + cls.__screenHeight]

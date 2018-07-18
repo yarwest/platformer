@@ -18,10 +18,10 @@ class GameMaster(CameraController):
         # Set up the screen
         cls.__screen = pygame.display.set_mode(screenSize#, pygame.FULLSCREEN, 16
             )
-        cls.__environment = Environment(cls.__screen, level, world)
+        cls.__environment = Environment(cls.__screen, level, world, cls)
 
         # Init the player
-        cls.__player = Player((130, 500), cls.__screen, cls.__environment, 100, 10)
+        cls.__player = Player((130, 500), cls.__screen, cls.__environment, 100, 10, cls)
         cls.__moving = 0
 
         # Loop until the user clicks the close button.

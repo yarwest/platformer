@@ -1,7 +1,7 @@
 import pygame
 from environmentSection import EnvironmentSection
 import globals
-class Environment():
+class Environment(object):
 
     __needHitbox = [
         globals.TOP_LEFT,
@@ -33,7 +33,7 @@ class Environment():
     # Constructor that loads the sprite and initializes variables
     # Requires a location tuple to use as the default location of the sprite
     # Takes the screen for the sprite to be drawn on
-    def __init__(self, screen, levelNo, world):
+    def __init__(self, screen, levelNo, world, master):
         self.__screen = screen
         self.__sprites = []
 
@@ -48,7 +48,7 @@ class Environment():
             for line in file:
                 sectionX,sectionY,sectionNo = line.split(",")
                 sectionNo = int(sectionNo)
-                section = EnvironmentSection((int(sectionX),int(sectionY)),self.__screen,self.__sprites[sectionNo],sectionNo)
+                section = EnvironmentSection((int(sectionX),int(sectionY)),self.__screen,self.__sprites[sectionNo],sectionNo, master)
                 if sectionNo in self.__needHitbox:
                     self.__hitboxSection.append(section)
                 self.__sections.append(section)

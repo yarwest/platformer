@@ -23,10 +23,10 @@ class LevelCreatorMaster(CameraController):
         ]
 
         cls.__sections = [
-            EnvironmentSection((64,64),cls.__screen,cls.__sprites[0],globals.CENTER),
-            EnvironmentSection((64,128),cls.__screen,cls.__sprites[0],globals.CENTER),
-            EnvironmentSection((64,192),cls.__screen,cls.__sprites[0],globals.CENTER),
-            EnvironmentSection((64,256),cls.__screen,cls.__sprites[0],globals.CENTER)
+            EnvironmentSection((64,64),cls.__screen,cls.__sprites[0],globals.CENTER, cls),
+            EnvironmentSection((64,128),cls.__screen,cls.__sprites[0],globals.CENTER, cls),
+            EnvironmentSection((64,192),cls.__screen,cls.__sprites[0],globals.CENTER, cls),
+            EnvironmentSection((64,256),cls.__screen,cls.__sprites[0],globals.CENTER, cls)
         ]
 
     @classmethod
