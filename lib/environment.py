@@ -33,7 +33,7 @@ class Environment(object):
     # Constructor that loads the sprite and initializes variables
     # Requires a location tuple to use as the default location of the sprite
     # Takes the screen for the sprite to be drawn on
-    def __init__(self, screen, levelNo, world, master):
+    def __init__(self, screen, levelNo, world):
         self.__screen = screen
         self.__sprites = []
 
@@ -48,15 +48,15 @@ class Environment(object):
             for line in file:
                 sectionX,sectionY,sectionNo = line.split(",")
                 sectionNo = int(sectionNo)
-                section = EnvironmentSection((int(sectionX),int(sectionY)),self.__screen,self.__sprites[sectionNo],sectionNo, master)
+                section = EnvironmentSection((int(sectionX),int(sectionY)),self.__screen,self.__sprites[sectionNo],sectionNo)
                 if sectionNo in self.__needHitbox:
                     self.__hitboxSection.append(section)
                 self.__sections.append(section)
 
     # Draw an individual sprite on the set screen and on the set location
     def draw(self):
-        from gameMaster import GameMaster
-        minX,minY,maxX,maxY = GameMaster.getScreenPosition()
+        from cameraController import CameraController
+        minX,minY,maxX,maxY = CameraController.getScreenPosition()
         for section in self.__sections:
             x,y = section.getLocation()
             if x+globals.TILE_WIDTH >= minX and y+globals.TILE_WIDTH >= minY and x < maxX and y < maxY:

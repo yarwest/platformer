@@ -2,7 +2,7 @@ import pygame
 from player import Player
 from environment import Environment
 from cameraController import CameraController
-class GameMaster(CameraController):
+class GameMaster(object):
 
     # Init function that opens a screen, instantiates certain objects, and sets a few variables
     @classmethod
@@ -10,7 +10,7 @@ class GameMaster(CameraController):
         # Init pygame
         pygame.init()
 
-        super(GameMaster, cls).init(screenSize, levelSize)
+        CameraController.init(screenSize, levelSize)
 
         cls.__screenWidth = screenSize[0]
         cls.__screenHeight = screenSize[1]
@@ -18,10 +18,10 @@ class GameMaster(CameraController):
         # Set up the screen
         cls.__screen = pygame.display.set_mode(screenSize#, pygame.FULLSCREEN, 16
             )
-        cls.__environment = Environment(cls.__screen, level, world, cls)
+        cls.__environment = Environment(cls.__screen, level, world)
 
         # Init the player
-        cls.__player = Player((130, 500), cls.__screen, cls.__environment, 100, 10, cls)
+        cls.__player = Player((130, 500), cls.__screen, cls.__environment, 100, 10)
         cls.__moving = 0
 
         # Loop until the user clicks the close button.
@@ -34,7 +34,7 @@ class GameMaster(CameraController):
         cls.__player.move(cls.__moving)
         cls.__player.draw()
         x,y = cls.__player.getLocation()
-        cls.setCameraPosition((x-(cls.__screenWidth/2),y-(cls.__screenHeight/2)))
+        CameraController.setCameraPosition((x-(cls.__screenWidth/2),y-(cls.__screenHeight/2)))
         pygame.display.flip()
 
 

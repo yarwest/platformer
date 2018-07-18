@@ -2,7 +2,7 @@ import pygame
 import globals
 from environmentSection import EnvironmentSection
 from cameraController import CameraController
-class LevelCreatorMaster(CameraController):
+class LevelCreatorMaster(object):
 
     # function that opens a screen and sets up the level creator
     @classmethod
@@ -10,7 +10,7 @@ class LevelCreatorMaster(CameraController):
         # Init pygame
         pygame.init()
 
-        super(LevelCreatorMaster, cls).init(screenSize, (1024,1024))
+        CameraController.init(screenSize, (1024,1024))
 
         # Set up the screen
         cls.__screen = pygame.display.set_mode(screenSize#, pygame.FULLSCREEN, 16
@@ -23,10 +23,10 @@ class LevelCreatorMaster(CameraController):
         ]
 
         cls.__sections = [
-            EnvironmentSection((64,64),cls.__screen,cls.__sprites[0],globals.CENTER, cls),
-            EnvironmentSection((64,128),cls.__screen,cls.__sprites[0],globals.CENTER, cls),
-            EnvironmentSection((64,192),cls.__screen,cls.__sprites[0],globals.CENTER, cls),
-            EnvironmentSection((64,256),cls.__screen,cls.__sprites[0],globals.CENTER, cls)
+            EnvironmentSection((64,64),cls.__screen,cls.__sprites[0],globals.CENTER),
+            EnvironmentSection((64,128),cls.__screen,cls.__sprites[0],globals.CENTER),
+            EnvironmentSection((64,192),cls.__screen,cls.__sprites[0],globals.CENTER),
+            EnvironmentSection((64,256),cls.__screen,cls.__sprites[0],globals.CENTER)
         ]
 
     @classmethod
