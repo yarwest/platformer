@@ -6,17 +6,17 @@ class DrawableObject(pygame.sprite.Sprite):
     # Requires a location tuple to use as the default location of the sprite
     # Takes the screen for the sprite to be drawn on
     def __init__(self, location, screen, sprite):
+        super(DrawableObject, self).__init__()
+        self.__screen = screen
+        self.__sprite = sprite
+
+        # Rect needed for collision detection
+        spriteX,spriteY = self.__sprite.get_size()
+        self.rect = pygame.Rect(location[0], location[1], spriteX, spriteY)
+
+        # Location has to be in the actual level to be valid
+        x,y = CameraController.getLevelSize()
         try:
-            super(DrawableObject, self).__init__()
-            self.__screen = screen
-            self.__sprite = sprite
-
-            # Rect needed for collision detection
-            spriteX,spriteY = self.__sprite.get_size()
-            self.rect = pygame.Rect(location[0], location[1], spriteX, spriteY)
-
-            # Location has to be in the actual level to be valid
-            x,y = CameraController.getLevelSize()
             if location[0] >= 0 and location[1] >= 0 and location[0] < x and location[1] < y:
                 self.__location = location
             else:

@@ -9,12 +9,12 @@ class Destroyable(DrawableObject):
     # Requires a location tuple to use as the default location of the player
     # Takes the screen for the sprite to be drawn on
     def __init__(self, location, screen, sprite, health):
+        super(Destroyable, self).__init__(location, screen, sprite)
+
+        # Add destroyable to collision group
+        self.__destroyableSprites.add((self))
+
         try:
-            super(Destroyable, self).__init__(location, screen, sprite)
-
-            # Add destroyable to collision group
-            self.__destroyableSprites.add((self))
-
             # Health has to be positive to be valid
             if health > 0:
                 self.__health = health
