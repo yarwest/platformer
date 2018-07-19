@@ -3,23 +3,35 @@ from destroyable import Destroyable
 import globals
 class Moveable(Destroyable):
 
+    __gravity = 10
+
     # Constructor that loads the sprite and initializes player variables
     # Requires a location tuple to use as the default location of the player
     # Takes the screen for the sprite to be drawn on
-    def __init__(self, location, screen, environment, sprite, health, speed):
+    def __init__(self, location, screen, environment, sprite, health, speed, weight):
+        super(Moveable, self).__init__(location, screen, sprite, health)
+
+        self.__environment = environment
+
         try:
-            super(Moveable, self).__init__(location, screen, sprite, health)
-
-            self.__environment = environment
-
             # Speed has to be positive to be valid
             if speed >= 0:
                 self.__speed = speed
             else:
                 raise ValueError("Please enter a valid speed, default speed was set to 0")
         except ValueError as exp:
-            print("Error", exp)
             self.__speed = 0
+            print("Error", exp)
+
+        try:
+            # Weight has to be positive to be valid
+            if weight >= 0:
+                self.__weight = weight
+            else:
+                raise ValueError("Please enter a valid weight, default weight was set to 1")
+        except ValueError as exp:
+            self.__weight = 1
+            print("Error", exp)
 
     # Retrieve the current speed of the object
     def getSpeed(self):
@@ -39,7 +51,7 @@ class Moveable(Destroyable):
         try:
             if direction == 1 or direction == -1 or direction == 0:
                 spriteX, spriteY = self.getLocation()
-                newLocation = (spriteX + (direction * self.__speed), spriteY + 10)
+                newLocation = (spriteX + (direction * self.__speed), spriteY + (self.__weight * self.__gravity))
                 self.setLocation(newLocation)
 
                 collisions = self.__environment.collision(self)
@@ -71,5 +83,5 @@ class Moveable(Destroyable):
                 collisionSection = collision.getSection()
                 if collisionSection == globals.BOTTOM_LEFT or collisionSection == globals.BOTTOM_MIDDLE or collisionSection == globals.BOTTOM_RIGHT:
                     collisionX, collisionY = collision.getLocation()
-                    newLocation = (newLocation[0], collisionY + globals.TILE_WIDTH)
+                    newLocation = (newLocation[0], collisionY + globals.TILE_WIDTH - (self.__weight * self.__gravity))
             self.setLocation(newLocation)
