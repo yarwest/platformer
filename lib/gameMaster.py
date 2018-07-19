@@ -2,6 +2,7 @@ import pygame
 from player import Player
 from environment import Environment
 from cameraController import CameraController
+from uiElement import UIElement
 class GameMaster(object):
 
     # Init function that opens a screen, instantiates certain objects, and sets a few variables
@@ -20,6 +21,10 @@ class GameMaster(object):
             )
         cls.__environment = Environment(cls.__screen, level, world)
 
+        cls.__font = pygame.font.Font(None,30)
+        cls.__uiElements = []
+        cls.__uiElements.append(UIElement((0,0), cls.__font, cls.__screen))
+
         # Init the player
         cls.__player = Player((130, 500), cls.__screen, cls.__environment, 100, 10, 1)
         cls.__moving = 0
@@ -35,6 +40,8 @@ class GameMaster(object):
         cls.__player.draw()
         x, y = cls.__player.getLocation()
         CameraController.setCameraPosition((x-(cls.__screenWidth/2),y-(cls.__screenHeight/2)))
+        for element in cls.__uiElements:
+            element.draw(cls.__player.getHealth())
         pygame.display.flip()
 
 
