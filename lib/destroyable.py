@@ -1,12 +1,13 @@
 import pygame
 from drawableObject import DrawableObject
+# A drawable object that can die
 class Destroyable(DrawableObject):
 
     # Group of sprites used to detect collision between sprites
     __destroyableSprites = pygame.sprite.Group()
 
-    # Constructor that loads the sprite and initializes player variables
-    # Requires a location tuple to use as the default location of the player
+    # Constructor that loads the sprite and initializes Health variable
+    # Requires a location tuple to use as the location of the object
     # Takes the screen for the sprite to be drawn on
     def __init__(self, location, screen, sprite, health):
         super(Destroyable, self).__init__(location, screen, sprite)

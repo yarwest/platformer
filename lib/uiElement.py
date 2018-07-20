@@ -1,6 +1,12 @@
 import pygame
+# Element that is drawn at a static location on a screen
 class UIElement(pygame.sprite.Sprite):
 
+    # Create UI element
+    # with location within the screen
+    # font to use
+    # screen to display element on
+    # (optional) sprite to draw on screen
     def __init__(self, location, font, screen, sprite = None):
         super(UIElement, self).__init__()
         self.__screen = screen
@@ -9,7 +15,7 @@ class UIElement(pygame.sprite.Sprite):
             self.__sprite = sprite
         self.__location = location
 
-    # Draw an individual sprite on the set screen and on the set location
+    # Draw an individual sprite (or text if provided) on the set screen and on the set location
     def draw(self, text = None):
         if text != None:
             text = self.__font.render(str(text), 1,(255,255,255))

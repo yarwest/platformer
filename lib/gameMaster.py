@@ -3,14 +3,15 @@ from player import Player
 from environment import Environment
 from cameraController import CameraController
 from uiElement import UIElement
+# Object handling all runtime logic used to play a normal level
 class GameMaster(object):
 
-    # Init function that opens a screen, instantiates certain objects, and sets a few variables
+    # Init function that opens a screen
+    # also instantiates a level, a player and the UI
     @classmethod
     def init(cls, level, world, screenSize, levelSize):
-        # Init pygame
+        # Init pygame and camera
         pygame.init()
-
         CameraController.init(screenSize, levelSize)
 
         cls.__screenWidth = screenSize[0]
@@ -20,6 +21,7 @@ class GameMaster(object):
         cls.__screen = pygame.display.set_mode(screenSize#, pygame.FULLSCREEN, 16
             )
 
+        # Set up font and initialize UI
         cls.__font = pygame.font.Font(None,30)
         cls.__uiElements = []
         cls.__uiElements.append(UIElement((0,0), cls.__font, cls.__screen))
@@ -34,6 +36,7 @@ class GameMaster(object):
         # Loop until the user clicks the close button.
         cls.__done = False
 
+    # Method that redraws the screen
     @classmethod
     def resetCanvas(cls):
         cls.__screen.fill((84, 149, 255))
@@ -51,15 +54,20 @@ class GameMaster(object):
         pygame.display.flip()
 
 
+    # -------- Main Program Loop -----------
     @classmethod
     def play(cls):
-        # -------- Main Program Loop -----------
         while not cls.__done:
+
+            # Always redraw the canvas
             cls.resetCanvas()
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
+                    # Break loop on quit
                     cls.__done = True
                 elif event.type == pygame.KEYDOWN:
+                    # Alter movement based on key input
                     if event.key == pygame.K_a:
                         cls.__moving = -1
                     elif event.key == pygame.K_d:
@@ -68,5 +76,6 @@ class GameMaster(object):
                         cls.__player.jump()
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_a or event.key == pygame.K_d:
+                        # Reset movement
                         cls.__moving = 0
                 pygame.display.flip()

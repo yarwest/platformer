@@ -2,9 +2,10 @@ import pygame
 import globals
 from environmentSection import EnvironmentSection
 from cameraController import CameraController
+# Object handling all runtime logic used to create a level
 class LevelCreatorMaster(object):
 
-    # function that opens a screen and sets up the level creator
+    # Function that opens a screen and sets up the level creator
     @classmethod
     def init(cls, screenSize):
         # Init pygame
@@ -29,6 +30,7 @@ class LevelCreatorMaster(object):
             EnvironmentSection((64,256),cls.__screen,cls.__sprites[0],globals.CENTER)
         ]
 
+    # Method that redraws the screen and all its components
     @classmethod
     def resetCanvas(cls):
         cls.__screen.fill((84, 149, 255))
@@ -36,6 +38,7 @@ class LevelCreatorMaster(object):
             section.draw()
         pygame.display.flip()
 
+    # Saving the created level in a structured text file with the level name
     @classmethod
     def saveLevel(cls):
         if cls.__name:
@@ -46,6 +49,7 @@ class LevelCreatorMaster(object):
         else:
             print "set a name"
 
+    # Change the name of the level
     @classmethod
     def setLevelName(cls, name):
         cls.__name = name

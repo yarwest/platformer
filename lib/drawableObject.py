@@ -1,5 +1,6 @@
 import pygame
 from cameraController import CameraController
+# Object that gets drawn on the screen
 class DrawableObject(pygame.sprite.Sprite):
 
     # Constructor that loads the sprite and initializes variables
@@ -25,7 +26,7 @@ class DrawableObject(pygame.sprite.Sprite):
             print("Error", exp)
             self.__location = (0,0)
 
-    # Draw an individual sprite on the set screen and on the set location
+    # Draw an individual sprite on the set screen and on the set location if it is located within the view
     def draw(self):
         x, y = self.__location
         spriteWidth, spriteHeight = self.getSize()
@@ -37,7 +38,7 @@ class DrawableObject(pygame.sprite.Sprite):
     def getLocation(self):
         return self.__location
 
-    # Set the location of the object
+    # Set the location of the object, the level size is the border
     def setLocation(self, location):
         levelX = CameraController.getLevelSize()[0]
         spriteWidth = self.__sprite.get_size()[0]
@@ -49,5 +50,6 @@ class DrawableObject(pygame.sprite.Sprite):
         self.rect.x = self.__location[0]
         self.rect.y = self.__location[1]
 
+    # Get sprite sizing
     def getSize(self):
         return self.__sprite.get_size()

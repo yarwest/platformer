@@ -1,3 +1,4 @@
+# All section identifiers with the corresponding numbers
 TOP_LEFT = 0
 TOP_MIDDLE = 1
 TOP_RIGHT = 2
@@ -12,4 +13,5 @@ INNER_BOTTOM_RIGHT = 10
 INNER_TOP_LEFT = 11
 INNER_TOP_RIGHT = 12
 
+# The width of a single section
 TILE_WIDTH = 64
