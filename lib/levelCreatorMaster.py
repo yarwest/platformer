@@ -1,5 +1,6 @@
 import pygame
 import globals
+from properties import Properties
 from environmentSection import EnvironmentSection
 from cameraController import CameraController
 # Object handling all runtime logic used to create a level
@@ -7,14 +8,20 @@ class LevelCreatorMaster(object):
 
     # Function that opens a screen and sets up the level creator
     @classmethod
-    def init(cls, screenSize):
+    def init(cls):
         # Init pygame
         pygame.init()
 
-        CameraController.init(screenSize, (1024,1024))
+        Properties.init()
+        cls.__resolution = Properties.getResolution()
+        CameraController.init(cls.__resolution, (1024,1024))
+
+        flags = 0
+        if Properties.isFullscreen():
+            flags = pygame.FULLSCREEN
 
         # Set up the screen
-        cls.__screen = pygame.display.set_mode(screenSize#, pygame.FULLSCREEN, 16
+        cls.__screen = pygame.display.set_mode(cls.__resolution, flags#, 16
             )
 
         cls.__name = None

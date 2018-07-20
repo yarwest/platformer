@@ -3,7 +3,7 @@ import pygame
 from lib.levelCreatorMaster import LevelCreatorMaster
 
 # Init the creator
-LevelCreatorMaster.init((1024,1024))
+LevelCreatorMaster.init()
 
 LevelCreatorMaster.setLevelName("MyLevel")
 
@@ -22,6 +22,8 @@ while not done:
             print "mouse click"
         elif event.type == pygame.KEYDOWN:
             print "key down"
+            if event.key == pygame.K_ESCAPE:
+                done = True
         elif event.type == pygame.KEYUP:
             print "key up"
         pygame.display.flip()

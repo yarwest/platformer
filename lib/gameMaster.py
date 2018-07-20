@@ -1,4 +1,5 @@
 import pygame
+from properties import Properties
 from player import Player
 from environment import Environment
 from cameraController import CameraController
@@ -9,16 +10,23 @@ class GameMaster(object):
     # Init function that opens a screen
     # also instantiates a level, a player and the UI
     @classmethod
-    def init(cls, level, world, screenSize, levelSize):
+    def init(cls, level, world, levelSize):
         # Init pygame and camera
         pygame.init()
-        CameraController.init(screenSize, levelSize)
 
-        cls.__screenWidth = screenSize[0]
-        cls.__screenHeight = screenSize[1]
+        Properties.init()
+        cls.__resolution = Properties.getResolution()
+        CameraController.init(cls.__resolution, levelSize)
+
+        cls.__screenWidth = cls.__resolution[0]
+        cls.__screenHeight = cls.__resolution[1]
+
+        flags = 0
+        if Properties.isFullscreen():
+            flags = pygame.FULLSCREEN
 
         # Set up the screen
-        cls.__screen = pygame.display.set_mode(screenSize#, pygame.FULLSCREEN, 16
+        cls.__screen = pygame.display.set_mode(cls.__resolution, flags #, 16
             )
 
         # Set up font and initialize UI
@@ -67,8 +75,10 @@ class GameMaster(object):
                     # Break loop on quit
                     cls.__done = True
                 elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        cls.__done = True
                     # Alter movement based on key input
-                    if event.key == pygame.K_a:
+                    elif event.key == pygame.K_a:
                         cls.__moving = -1
                     elif event.key == pygame.K_d:
                         cls.__moving = 1

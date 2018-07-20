@@ -83,7 +83,7 @@ class Moveable(Destroyable):
     # Move the object up
     def jump(self):
         spriteX, spriteY = self.getLocation()
-        newLocation = (spriteX, spriteY - 50)
+        newLocation = (spriteX, spriteY - 75)
         self.setLocation(newLocation)
 
         # Check to see if there are collisions with environment sections and adjust position if so
