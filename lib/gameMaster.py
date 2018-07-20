@@ -15,19 +15,14 @@ class GameMaster(object):
         pygame.init()
 
         Properties.init()
+        cls.applyScreenChanges()
         cls.__resolution = Properties.getResolution()
+        cls.__resolution = cls.__resolution if cls.__resolution != (0,0) else cls.__screen.get_size()
+
         CameraController.init(cls.__resolution, levelSize)
 
         cls.__screenWidth = cls.__resolution[0]
         cls.__screenHeight = cls.__resolution[1]
-
-        flags = 0
-        if Properties.isFullscreen():
-            flags = pygame.FULLSCREEN
-
-        # Set up the screen
-        cls.__screen = pygame.display.set_mode(cls.__resolution, flags #, 16
-            )
 
         # Set up font and initialize UI
         cls.__font = pygame.font.Font(None,30)
@@ -43,6 +38,15 @@ class GameMaster(object):
 
         # Loop until the user clicks the close button.
         cls.__done = False
+
+    # (Re) initialize the screen with all properties
+    @classmethod
+    def applyScreenChanges(cls):
+        flags = 0
+        if Properties.isFullscreen():
+            flags = pygame.FULLSCREEN
+        cls.__screen = pygame.display.set_mode(Properties.getResolution(), flags #, 16
+            )
 
     # Method that redraws the screen
     @classmethod
@@ -77,6 +81,10 @@ class GameMaster(object):
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         cls.__done = True
+                    if event.key == pygame.K_f:
+                        Properties.toggleFullscreen()
+                        cls.applyScreenChanges()
+
                     # Alter movement based on key input
                     elif event.key == pygame.K_a:
                         cls.__moving = -1
