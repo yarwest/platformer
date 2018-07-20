@@ -55,12 +55,8 @@ class Environment(object):
 
     # Draw an individual sprite on the set screen and on the set location
     def draw(self):
-        from cameraController import CameraController
-        minX,minY,maxX,maxY = CameraController.getScreenPosition()
         for section in self.__sections:
-            x,y = section.getLocation()
-            if x+globals.TILE_WIDTH >= minX and y+globals.TILE_WIDTH >= minY and x < maxX and y < maxY:
-                section.draw()
+            section.draw()
 
     # Function to check if there is any collision between an object and the sprite collection
     def collision(self, collider):
