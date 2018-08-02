@@ -1,6 +1,7 @@
 import pygame
 from properties import Properties
 from player import Player
+from interactable import Interactable
 from environment import Environment
 from cameraController import CameraController
 from uiElement import UIElement
@@ -36,6 +37,8 @@ class GameMaster(object):
         cls.__player = Player((130, 500), cls.__screen, cls.__environment, 100, 10, 1)
         cls.__moving = 0
 
+        cls.__npc = Interactable((704, 339), cls.__font, cls.__screen, pygame.image.load("sprites/player.png"))
+
         # Loop until the user clicks the close button.
         cls.__done = False
 
@@ -60,11 +63,11 @@ class GameMaster(object):
 
         # Redraw all components
         cls.__environment.draw()
+        cls.__npc.draw()
         cls.__player.draw()
         for element in cls.__uiElements:
             element.draw(cls.__player.getHealth())
         pygame.display.flip()
-
 
     # -------- Main Program Loop -----------
     @classmethod
@@ -92,6 +95,8 @@ class GameMaster(object):
                         cls.__moving = 1
                     elif event.key == pygame.K_w or event.key == pygame.K_SPACE:
                         cls.__player.jump()
+                    elif event.key == pygame.K_e:
+                        cls.__npc.interact()
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_a or event.key == pygame.K_d:
                         # Reset movement

@@ -4,7 +4,7 @@ class UIElement(pygame.sprite.Sprite):
 
     # Create UI element
     # with location within the screen
-    # font to use
+    # font to display text in
     # screen to display element on
     # (optional) sprite to draw on screen
     def __init__(self, location, font, screen, sprite = None):
