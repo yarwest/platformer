@@ -9,15 +9,15 @@ class Moveable(Destroyable):
     # Constructor that loads the sprite and initializes object variables
     # Requires a location tuple to use as the default location of the object
     # Takes the screen for the sprite to be drawn on
-    # Takes the environment that the object will be placed in
+    # Takes the level that the object will be placed in
     # Takes the sprite that will be drawn
     # Takes a health value to pass to the Destroyable class
     # Takes a speed value to calculate movement
     # Takes a weight value to calculate gravity
-    def __init__(self, location, screen, environment, sprite, health, speed, weight):
+    def __init__(self, location, screen, level, sprite, health, speed, weight):
         super(Moveable, self).__init__(location, screen, sprite, health)
 
-        self.__environment = environment
+        self.__level = level
 
         try:
             # Speed has to be positive to be valid
@@ -60,8 +60,8 @@ class Moveable(Destroyable):
                 newLocation = (spriteX + (direction * self.__speed), spriteY + (self.__weight * self.__gravity))
                 self.setLocation(newLocation)
 
-                # Check to see if there are collisions with environment sections and adjust position if so
-                collisions = self.__environment.collision(self)
+                # Check to see if there are collisions with level sections and adjust position if so
+                collisions = self.__level.collision(self)
                 if collisions:
                     spriteWidth, spriteHeight = self.getSize()
                     for collision in collisions:
@@ -86,8 +86,8 @@ class Moveable(Destroyable):
         newLocation = (spriteX, spriteY - 75)
         self.setLocation(newLocation)
 
-        # Check to see if there are collisions with environment sections and adjust position if so
-        collisions = self.__environment.collision(self)
+        # Check to see if there are collisions with level sections and adjust position if so
+        collisions = self.__level.collision(self)
         if collisions:
             for collision in collisions:
                 collisionSection = collision.getSection()

@@ -2,7 +2,8 @@ import pygame
 from properties import Properties
 from player import Player
 from interactable import Interactable
-from environment import Environment
+from script import Script
+from level import Level
 from cameraController import CameraController
 from uiElement import UIElement
 # Object handling all runtime logic used to play a normal level
@@ -31,13 +32,15 @@ class GameMaster(object):
         cls.__uiElements.append(UIElement((0,0), cls.__font, cls.__screen))
 
         # Load level
-        cls.__environment = Environment(cls.__screen, level, world)
+        cls.__level = Level(cls.__screen, level, world)
 
         # Init the player
-        cls.__player = Player((130, 500), cls.__screen, cls.__environment, 100, 10, 1)
+        cls.__player = Player((130, 500), cls.__screen, cls.__level, 100, 10, 1)
         cls.__moving = 0
 
-        cls.__npc = Interactable((704, 339), cls.__font, cls.__screen, pygame.image.load("sprites/player.png"))
+        cls.__npc = Interactable((704, 339),
+            Script((704, 339), cls.__screen, cls.__font, False, [["Hey hey"], ["what?", "fuck off aight"]]),
+            cls.__screen, pygame.image.load("sprites/player.png"))
 
         # Loop until the user clicks the close button.
         cls.__done = False
@@ -62,9 +65,11 @@ class GameMaster(object):
         CameraController.setCameraPosition((x-(cls.__screenWidth/2),y-(cls.__screenHeight/2)))
 
         # Redraw all components
-        cls.__environment.draw()
+        cls.__level.draw()
         cls.__npc.draw()
         cls.__player.draw()
+        if cls.__moving == 1:
+            cls.__player.updateHealth(-20)
         for element in cls.__uiElements:
             element.draw(cls.__player.getHealth())
         pygame.display.flip()

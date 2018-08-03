@@ -1,7 +1,7 @@
 import pygame
 from environmentSection import EnvironmentSection
 import globals
-# The level consisting of platforms and such
+# The environment consisting of platforms and such
 class Environment(object):
 
     # Environment sections that require a hitbox
@@ -48,15 +48,12 @@ class Environment(object):
         self.__hitboxSection = []
         self.__sections = []
 
-        # Load the actual level composition
-        with open("levels/"+levelNo+".txt", "r") as file:
-            for line in file:
-                sectionX,sectionY,sectionNo = line.split(",")
-                sectionNo = int(sectionNo)
-                section = EnvironmentSection((int(sectionX),int(sectionY)),self.__screen,self.__sprites[sectionNo],sectionNo)
-                if sectionNo in self.__needHitbox:
-                    self.__hitboxSection.append(section)
-                self.__sections.append(section)
+    def appendSection(self, sectionX, sectionY, sectionNo):
+        sectionNo = int(sectionNo)
+        section = EnvironmentSection((int(sectionX),int(sectionY)),self.__screen,self.__sprites[sectionNo],sectionNo)
+        if sectionNo in self.__needHitbox:
+            self.__hitboxSection.append(section)
+        self.__sections.append(section)
 
     # Draw all sections
     def draw(self):
