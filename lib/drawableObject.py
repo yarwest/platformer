@@ -1,5 +1,5 @@
 import pygame
-from cameraController import CameraController
+from .cameraController import CameraController
 # Object that gets drawn on the screen
 class DrawableObject(pygame.sprite.Sprite):
 

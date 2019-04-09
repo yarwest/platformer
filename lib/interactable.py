@@ -1,5 +1,5 @@
 import pygame
-from drawableObject import DrawableObject
+from .drawableObject import DrawableObject
 # A drawable object that can be interacted with by a player
 class Interactable(DrawableObject):
 

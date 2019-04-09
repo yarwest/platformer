@@ -1,5 +1,5 @@
 import pygame
-from moveable import Moveable
+from .moveable import Moveable
 # Player object
 class Player(Moveable):
     # The file name for the sprite to be drawn

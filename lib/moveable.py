@@ -1,6 +1,6 @@
 import pygame
-from destroyable import Destroyable
-import globals
+from .destroyable import Destroyable
+from .globals import *
 # An object that can move
 class Moveable(Destroyable):
 
@@ -66,14 +66,14 @@ class Moveable(Destroyable):
                     spriteWidth, spriteHeight = self.getSize()
                     for collision in collisions:
                         collisionSection = collision.getSection()
-                        if collisionSection != globals.BOTTOM_LEFT and collisionSection != globals.BOTTOM_MIDDLE and collisionSection != globals.BOTTOM_RIGHT:
+                        if collisionSection != BOTTOM_LEFT and collisionSection != BOTTOM_MIDDLE and collisionSection != BOTTOM_RIGHT:
                             collisionX, collisionY = collision.getLocation()
-                            if collisionSection == globals.TOP_LEFT or collisionSection == globals.TOP_MIDDLE or collisionSection == globals.TOP_RIGHT:
+                            if collisionSection == TOP_LEFT or collisionSection == TOP_MIDDLE or collisionSection == TOP_RIGHT:
                                 newLocation = (newLocation[0], collisionY - spriteHeight)
-                            elif collisionSection == globals.MIDDLE_LEFT:
+                            elif collisionSection == MIDDLE_LEFT:
                                 newLocation = (collisionX - spriteWidth, newLocation[1])
-                            elif collisionSection == globals.MIDDLE_RIGHT:
-                                newLocation = (collisionX + globals.TILE_WIDTH, newLocation[1])
+                            elif collisionSection == MIDDLE_RIGHT:
+                                newLocation = (collisionX + TILE_WIDTH, newLocation[1])
                     self.setLocation(newLocation)
             else:
                 raise ValueError("Please enter a valid direction")
@@ -91,7 +91,7 @@ class Moveable(Destroyable):
         if collisions:
             for collision in collisions:
                 collisionSection = collision.getSection()
-                if collisionSection == globals.BOTTOM_LEFT or collisionSection == globals.BOTTOM_MIDDLE or collisionSection == globals.BOTTOM_RIGHT:
+                if collisionSection == BOTTOM_LEFT or collisionSection == BOTTOM_MIDDLE or collisionSection == BOTTOM_RIGHT:
                     collisionX, collisionY = collision.getLocation()
-                    newLocation = (newLocation[0], collisionY + globals.TILE_WIDTH - (self.__weight * self.__gravity))
+                    newLocation = (newLocation[0], collisionY + TILE_WIDTH - (self.__weight * self.__gravity))
             self.setLocation(newLocation)

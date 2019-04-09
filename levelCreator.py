@@ -1,6 +1,6 @@
 # Import GameMaster
 import pygame
-from lib.levelCreatorMaster import LevelCreatorMaster
+from lib import LevelCreatorMaster
 
 # Init the creator
 LevelCreatorMaster.init()
@@ -19,11 +19,11 @@ while not done:
         if event.type == pygame.QUIT:
             done = True
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            print "mouse click"
+            print("mouse click")
         elif event.type == pygame.KEYDOWN:
-            print "key down"
+            print("key down")
             if event.key == pygame.K_ESCAPE:
                 done = True
         elif event.type == pygame.KEYUP:
-            print "key up"
+            print("key up")
         pygame.display.flip()

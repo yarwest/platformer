@@ -1,19 +1,19 @@
 import pygame
-from environmentSection import EnvironmentSection
-import globals
+from .environmentSection import EnvironmentSection
+from .globals import *
 # The environment consisting of platforms and such
 class Environment(object):
 
     # Environment sections that require a hitbox
     __needHitbox = [
-        globals.TOP_LEFT,
-        globals.TOP_MIDDLE,
-        globals.TOP_RIGHT,
-        globals.MIDDLE_LEFT,
-        globals.MIDDLE_RIGHT,
-        globals.BOTTOM_LEFT,
-        globals.BOTTOM_MIDDLE,
-        globals.BOTTOM_RIGHT
+        TOP_LEFT,
+        TOP_MIDDLE,
+        TOP_RIGHT,
+        MIDDLE_LEFT,
+        MIDDLE_RIGHT,
+        BOTTOM_LEFT,
+        BOTTOM_MIDDLE,
+        BOTTOM_RIGHT
     ]
 
     # Types of environment sections

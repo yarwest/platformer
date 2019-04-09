@@ -1,5 +1,5 @@
 import pygame
-from drawableObject import DrawableObject
+from .drawableObject import DrawableObject
 # A drawable object that can die
 class Destroyable(DrawableObject):
 
@@ -38,4 +38,4 @@ class Destroyable(DrawableObject):
 
     # Destroys the object in a fashionable way
     def die(self):
-        print "died"
+        print("died")

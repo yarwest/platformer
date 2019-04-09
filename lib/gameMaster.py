@@ -1,11 +1,11 @@
 import pygame
-from properties import Properties
-from player import Player
-from interactable import Interactable
-from script import Script
-from level import Level
-from cameraController import CameraController
-from uiElement import UIElement
+from .properties import Properties
+from .player import Player
+from .interactable import Interactable
+from .script import Script
+from .level import Level
+from .cameraController import CameraController
+from .uiElement import UIElement
 # Object handling all runtime logic used to play a normal level
 class GameMaster(object):
 

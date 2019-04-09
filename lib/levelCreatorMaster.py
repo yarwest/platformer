@@ -1,8 +1,8 @@
 import pygame
-import globals
-from properties import Properties
-from environmentSection import EnvironmentSection
-from cameraController import CameraController
+from .globals import *
+from .properties import Properties
+from .environmentSection import EnvironmentSection
+from .cameraController import CameraController
 # Object handling all runtime logic used to create a level
 class LevelCreatorMaster(object):
 
@@ -31,10 +31,10 @@ class LevelCreatorMaster(object):
         ]
 
         cls.__sections = [
-            EnvironmentSection((64,64),cls.__screen,cls.__sprites[0],globals.CENTER),
-            EnvironmentSection((64,128),cls.__screen,cls.__sprites[0],globals.CENTER),
-            EnvironmentSection((64,192),cls.__screen,cls.__sprites[0],globals.CENTER),
-            EnvironmentSection((64,256),cls.__screen,cls.__sprites[0],globals.CENTER)
+            EnvironmentSection((64,64),cls.__screen,cls.__sprites[0],CENTER),
+            EnvironmentSection((64,128),cls.__screen,cls.__sprites[0],CENTER),
+            EnvironmentSection((64,192),cls.__screen,cls.__sprites[0],CENTER),
+            EnvironmentSection((64,256),cls.__screen,cls.__sprites[0],CENTER)
         ]
 
     # Method that redraws the screen and all its components
@@ -54,7 +54,7 @@ class LevelCreatorMaster(object):
                     x,y = section.getLocation()
                     file.write(str(x)+","+str(y)+","+str(section.getSection())+"\n")
         else:
-            print "set a name"
+            print("set a name")
 
     # Change the name of the level
     @classmethod

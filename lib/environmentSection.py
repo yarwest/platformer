@@ -1,5 +1,5 @@
 import pygame
-from drawableObject import DrawableObject
+from .drawableObject import DrawableObject
 # A section of the level
 class EnvironmentSection(DrawableObject):
 

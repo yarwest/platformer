@@ -1,5 +1,5 @@
 import pygame
-from environment import Environment
+from .environment import Environment
 # The level with all objects in it
 class Level(object):
 
